@@ -400,13 +400,32 @@ var Files_Texteditor = {
 		controls.append(makeButton('mixed', t('files_texteditor', 'Mixed'), true));
 		controls.append(makeButton('image', t('files_texteditor', 'Preview')));
 
-        var pdfDownloadButton = $('<button/>');
-        pdfDownloadButton.click(window.alert('download...'));
-        pdfDownloadButton.css('background-image', 'url("' + OC.imagePath('files_texteditor', 'pdf') + '")');
-        controls.append(pdfDownloadButton);
+        controls.append(OCA.Files_Texteditor.createDownloadButton());
 
 		$('#editor_close').after(controls);
 	},
+
+
+    /**
+	 * Create the download Button
+     */
+    createDownloadButton: function() {
+        var doc = new jsPDF();
+        var specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+
+        var pdfDownloadButton = $('<button/>');
+        pdfDownloadButton.click(() => {
+        	doc.fromHTML($('div#preview.text-markdown').html(), 15, 15, {
+            'width': 170
+        	});
+        	doc.save("editor.pdf");
+        });
+        pdfDownloadButton.css('background-image', 'url("' + OC.imagePath('files_texteditor', 'pdf') + '")');
+    },
 
 	/**
 	 * Removes the control bar

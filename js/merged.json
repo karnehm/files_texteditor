@@ -1,5 +1,6 @@
 [
   "editor.js",
   "sidebarpreview.js",
+  "jspdf.min.js",
   "core/vendor/ace-builds/src-noconflict/ace.js"
 ]
