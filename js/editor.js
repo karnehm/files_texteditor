@@ -395,7 +395,18 @@ var Files_Texteditor = {
 		}.bind(this);
 
 		var controls = $('<span/>').attr('id', 'preview_editor_controls');
-		controls.append(makeButton('text', t('files_texteditor', 'Edit')));
+
+		var pdfDownloadButton = $('<button/>');
+        pdfDownloadButton.tooltip({
+            title: tooltip,
+            container: 'body',
+            placement: 'bottom',
+            delay: {show: 500, hide: 0}
+        });
+        pdfDownloadButton.click(window.alert('download...'));
+        pdfDownloadButton.css('background-image', 'url("' + OC.imagePath('files_texteditor', 'pdf') + '")');
+		controls.append(pdfDownloadButton);
+		controls.append(makeButton('text', t('files_texteditor', 'Edittt')));
 		controls.append(makeButton('mixed', t('files_texteditor', 'Mixed'), true));
 		controls.append(makeButton('image', t('files_texteditor', 'Preview')));
 		$('#editor_close').after(controls);
